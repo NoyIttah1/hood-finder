@@ -1,7 +1,7 @@
-
 <div class="header-container">
-<h1>Hood finder</h1>
+  <h1>Hood Finder</h1>
   <div class="actions">
+    <!-- Search Bar -->
     <form class="example-form">
       <input
         type="text"
@@ -11,12 +11,23 @@
         class="example-input"
       />
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-        <mat-option *ngFor="let neighborhood of filteredNeighborhoods" [value]="neighborhood">
+        <mat-option *ngFor="let neighborhood of neighborhoods" [value]="neighborhood">
           {{ neighborhood }}
         </mat-option>
       </mat-autocomplete>
     </form>
-    <!-- Filter Icon -->
+
+    <!-- Filter Icon with Dropdown Menu -->
+    <button mat-icon-button [matMenuTriggerFor]="filterMenu">
       <mat-icon>tune</mat-icon>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <mat-menu #filterMenu="matMenu" >
+      <button mat-menu-item (click)="applyFilter('city')">Filter by City</button>
+      <button mat-menu-item (click)="applyFilter('age')">Filter by Average Age</button>
+      <button mat-menu-item (click)="applyFilter('distance')">Filter by Distance</button>
+      <button mat-menu-item (click)="applyFilter('income')">Filter by Income</button>
+    </mat-menu>
   </div>
 </div>

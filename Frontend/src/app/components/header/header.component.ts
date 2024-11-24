@@ -1,28 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() neighborhoods: string[] = [];
   @Output() search = new EventEmitter<string>();
+  @Output() filter = new EventEmitter<string>();
 
   control = new FormControl('');
-  filteredNeighborhoods: string[] = []; // Filtered data for autocomplete
+  filteredNeighborhoods$: Observable<string[]> | undefined;
 
   ngOnInit(): void {
-    // Listen for input changes and filter results
-    this.control.valueChanges.pipe(
+    this.filteredNeighborhoods$ = this.control.valueChanges.pipe(
       startWith(''),
-      debounceTime(300),
-      map((value) => this.filterNeighborhoods(value || ''))
-    ).subscribe((filtered) => {
-      this.filteredNeighborhoods = filtered;
-    });
+      map((query) => this.filterNeighborhoods(query || ''))
+    );
   }
 
   filterNeighborhoods(query: string): string[] {
@@ -33,5 +31,10 @@ export class HeaderComponent implements OnInit {
 
   onOptionSelected(event: any): void {
     this.search.emit(event.option.value);
+  }
+
+  applyFilter(filterType: string): void {
+    console.log(`Filter applied: ${filterType}`);
+    this.filter.emit(filterType); // Emit the selected filter type to the parent
   }
 }

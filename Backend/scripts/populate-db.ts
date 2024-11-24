@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import Neighborhood from '../models/Neighborhood'; // Ensure the path is correct
+import Neighborhood, {INeighborhood} from '../models/Neighborhood'; // Ensure the path is correct
 
 const MONGO_URl = 'mongodb://localhost:27017/noy';
 
@@ -21,7 +21,7 @@ const filePath = path.resolve(__dirname, '../db/neighborhoods_data.json');
 async function populateDatabase(): Promise<void> {
     try {
         const fileData = fs.readFileSync(filePath, 'utf8');
-        const neighborhoods: any[] = JSON.parse(fileData);
+        const neighborhoods: INeighborhood[] = JSON.parse(fileData);
 
         const validNeighborhoods = neighborhoods.map((entry: any) => {
             // Map JSON fields to schema fields

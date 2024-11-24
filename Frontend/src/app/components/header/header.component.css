@@ -9,3 +9,19 @@
     align-items:center;
   }
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none; /* Ensures proper interaction */
+}
+
+.cdk-overlay-pane {
+  pointer-events: auto;
+}
