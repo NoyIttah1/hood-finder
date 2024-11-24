@@ -1,0 +1,15 @@
+<div class="neighborhoods-container">
+
+  <!-- Neighborhood Cards -->
+  <div *ngIf="neighborhoods.length; else noData">
+    <app-neighborhood-card
+      *ngFor="let neighborhood of neighborhoods"
+      [neighborhood]="neighborhood"
+    ></app-neighborhood-card>
+  </div>
+
+  <!-- No Data Message -->
+  <ng-template #noData>
+    <p>No neighborhoods found.</p>
+  </ng-template>
+</div>
