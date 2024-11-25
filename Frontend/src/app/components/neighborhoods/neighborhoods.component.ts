@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { INeighborhood } from '../../defines';
+import {Component, Input} from '@angular/core';
+import {INeighborhood} from '../../defines';
 
 @Component({
   selector: 'app-neighborhoods',
@@ -7,5 +7,5 @@ import { INeighborhood } from '../../defines';
   styleUrls: ['./neighborhoods.component.css'],
 })
 export class NeighborhoodsComponent {
-  @Input() neighborhoods: INeighborhood[] = []; // Receive data from parent
+  @Input({alias: 'neighborhoods', required: true}) neighborhoods: INeighborhood[] = []; // Receive data from parent
 }

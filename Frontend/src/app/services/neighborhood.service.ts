@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {INeighborhood} from "../defines";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {INeighborhood, INeighborhoodFilters} from "../defines";
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +8,22 @@ import {INeighborhood} from "../defines";
 export class NeighborhoodService {
   private readonly apiUrl = 'http://localhost:3000/neighborhoods';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-  // Fetch the list of neighborhoods
-  getNeighborhoods(): Observable<INeighborhood[]> {
-    return this.http.get<INeighborhood[]>(this.apiUrl);
+
+  getNeighborhoods$(queryParams: INeighborhoodFilters) {
+    const httpParams = new HttpParams({fromObject: queryParams as any});
+
+    return this.http.get<{
+      data: INeighborhood[],
+      meta: {
+        total:number,
+        page: number,
+        limit: number
+      }
+    }>(this.apiUrl, {
+      params: httpParams
+    });
   }
 }

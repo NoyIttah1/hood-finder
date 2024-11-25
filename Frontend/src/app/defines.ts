@@ -9,9 +9,16 @@ export interface INeighborhood {
   longitude: number;
 }
 
-export interface IFilters {
-  minAge: number;
-  maxAge: number;
-  minDistance: number;
-  maxDistance: number ;
+export type SortOrder = 'asc' | 'dsc';
+
+
+export interface INeighborhoodFilters {
+  minAge?: number;
+  maxAge?: number;
+  minDistance?: number;
+  maxDistance?: number;
+  sortField?: keyof INeighborhood;
+  sortOrder?: SortOrder;
+  limit?: number;
+  page?: number;
 }

@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module'; // Import the routing module
-import { AppComponent } from './app.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module'; // Import the routing module
+import {AppComponent} from './app.component';
 import {NeighborhoodsComponent} from "./components/neighborhoods/neighborhoods.component";
 import {HttpClientModule} from "@angular/common/http";
 import {NeighborhoodCardComponent} from "./components/neighborhood-card/neighborhood-card.component";
@@ -36,6 +36,8 @@ import {MatSelectModule} from "@angular/material/select";
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -49,10 +51,10 @@ import {MatSelectModule} from "@angular/material/select";
     MatSliderModule,
     MatButtonToggleModule,
     MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

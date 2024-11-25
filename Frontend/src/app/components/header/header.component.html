@@ -4,19 +4,17 @@
     <!-- Search Bar -->
     <div class="search-bar">
       <mat-form-field appearance="outline">
-        <mat-label>Search for a neighborhood</mat-label>
+        <mat-label>Neighborhood</mat-label>
         <input
           type="text"
           matInput
           [formControl]="control"
           [matAutocomplete]="auto"
+          placeholder="Type a neighborhood name"
         />
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let neighborhood of filteredNeighborhoods | async"
-            [value]="neighborhood"
-          >
-            {{ neighborhood }}
+          <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+            {{ option }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

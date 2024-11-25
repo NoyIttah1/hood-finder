@@ -1,3 +1,10 @@
-<app-header  (search)="onSearch($event)"></app-header>
+<app-header (filterEmitter)="onFilter($event)" [neighborhoodsNames]="neighborhoodsNamesToSearch" (search)="onSearch($event)"></app-header>
+IS LOADING ???? {{ this.isLoadingData }}
 <app-neighborhoods [neighborhoods]="neighborhoods"></app-neighborhoods>
 <app-footer></app-footer>
+
+
+
+Current Page {{this.paginationFilters.currentPage}} / {{paginationDATA?.totalPages}}
+<button (click)="movePage(true)">PREVIOUS PAGE BITCH ASS</button>
+<button (click)="movePage(false)">NEXT PAGE BITCH ASS</button>

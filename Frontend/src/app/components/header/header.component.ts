@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filter-dialog.component";
+import {INeighborhoodFilters} from "../../defines";
 
 @Component({
   selector: 'app-header',
@@ -11,40 +12,49 @@ import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filt
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  @Input() neighborhoods: string[] = [];
+  @Input({alias: "neighborhoodsNames", required: true}) neighborhoods: string[] = [];
   @Output() search = new EventEmitter<string>();
-  @Output() filter = new EventEmitter<string>();
+
+  filters: INeighborhoodFilters = {
+    minAge: 0,
+    maxAge: 120,
+    minDistance: 1,
+    maxDistance: 100,
+    sortField: 'neighborhood',
+    sortOrder: 'asc'
+  };
+  @Output() filterEmitter = new EventEmitter<INeighborhoodFilters>();
   control = new FormControl('');
-  filteredNeighborhoods$: Observable<string[]> | undefined;
-  filteredNeighborhoods: Observable<string[]> | undefined;
+  filteredOptions$!: Observable<string[]>;
 
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
-    // Filter neighborhoods as the user types
-    // this.filteredNeighborhoods = this.control.valueChanges.pipe(
-    //   startWith(''),
-    //   map((query) => this.filterNeighborhoods(query || ''))
-    // );
+    this.filteredOptions$ = this.control.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterNeighborhoodNames(value || ''))
+    );
   }
 
   openFilterDialog() {
     const dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '300px',
+      data: this.filters,
     });
 
-    dialogRef.afterClosed().subscribe((filters) => {
-      if (filters) {
-        console.log('Applied Filters:', filters);
-        // Pass filters to parent or service for backend queries
-      }
-    });}
-
-  filterNeighborhoods(query: string): string[] {
-    return this.neighborhoods.filter((name) =>
-      name.toLowerCase().includes(query.toLowerCase())
-    );
+    dialogRef.afterClosed().subscribe((filters: INeighborhoodFilters) => {
+      if (!filters) return;
+      this.filterEmitter.emit(filters);
+      this.filters = filters; /// To save the current filters so when we open the dialog again
+    });
   }
 
+  private _filterNeighborhoodNames(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.neighborhoods.filter(option =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
 }
