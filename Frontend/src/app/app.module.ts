@@ -21,6 +21,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import {MatSelectModule} from "@angular/material/select";
     MatSliderModule,
     MatButtonToggleModule,
     MatSelectModule,
-
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

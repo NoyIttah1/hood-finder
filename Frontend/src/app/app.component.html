@@ -1,5 +1,9 @@
 <app-header (filterEmitter)="onFilter($event)" (onSearchCardSelected)="onSelectedSearchCard($event)" [allNeighborhoods]="neighborhoods" [neighborhoodsNames]="neighborhoodsNamesToSearch" (search)="onSearch($event)"></app-header>
-IS LOADING ???? {{ this.isLoadingData }}
+
+<div *ngIf="this.isLoadingData" class="loader-container">
+  <mat-spinner></mat-spinner>
+  Loading data...
+</div>
 <app-neighborhoods [neighborhoods]="searchedCards.length > 0 ? searchedCards: neighborhoods"></app-neighborhoods>
 
 <div class="pagination-container">

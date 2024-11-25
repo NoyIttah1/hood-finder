@@ -3,3 +3,12 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 16px;
+  justify-content: center;
+  padding: 50px;
+}
