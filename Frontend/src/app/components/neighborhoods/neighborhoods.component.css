@@ -2,4 +2,35 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
+  gap: 16px; /* Add spacing between cards */
+  background-color: #f9f9f9;
+}
+
+.neighborhood-card {
+  background-color: #fff;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.neighborhood-card:hover {
+  transform: translateY(-4px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+}
+
+.mat-card-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+.mat-card-content {
+  font-size: 14px;
+  line-height: 1.5;
 }
