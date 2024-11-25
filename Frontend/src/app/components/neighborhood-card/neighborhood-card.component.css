@@ -1,15 +1,7 @@
-/*.card {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  border: 1px solid #e3935a;*/
-/*  border-radius: 10px;*/
-/*  padding: 10px;*/
-/*  gap: 5px;*/
-/*  max-width:400px ;*/
-/*  background-color: rgba(166, 152, 152, 0.58);*/
-/*}*/
-neighborhoods-container {
-  padding: 20px;
+
+.neighborhood-card {
+  background-color: #d3cdcb;
+  margin-bottom: 8px ;
 }
 
 .neighborhood-tile {
@@ -17,3 +9,4 @@ neighborhoods-container {
   justify-content: center;
   align-items: center;
 }
+

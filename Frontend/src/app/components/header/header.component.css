@@ -1,27 +1,29 @@
+:host {
+  background: transparent;
+}
+
 .header-container {
   display: flex;
   flex-direction: column;
+  padding: 16px;
+  padding-bottom: unset !important;
+
+  .title {
+    color: #e87e51;
+    display: flex;
+    align-self: center;
+  }
 
   .actions {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    align-items:center;
+
+    .search-bar {
+      flex: 1;
+    }
   }
 }
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: visible;
-}
 
-.cdk-overlay-container {
-  position: fixed;
-  z-index: 1000;
-  pointer-events: none; /* Ensures proper interaction */
-}
-
-.cdk-overlay-pane {
-  pointer-events: auto;
+/* Override the height of the wrapper */
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 50px !important;
 }

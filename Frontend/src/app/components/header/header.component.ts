@@ -12,12 +12,13 @@ export class HeaderComponent {
   @Input() neighborhoods: string[] = [];
   @Output() search = new EventEmitter<string>();
   @Output() filter = new EventEmitter<string>();
-
   control = new FormControl('');
   filteredNeighborhoods$: Observable<string[]> | undefined;
+  filteredNeighborhoods: Observable<string[]> | undefined;
 
   ngOnInit(): void {
-    this.filteredNeighborhoods$ = this.control.valueChanges.pipe(
+    // Filter neighborhoods as the user types
+    this.filteredNeighborhoods = this.control.valueChanges.pipe(
       startWith(''),
       map((query) => this.filterNeighborhoods(query || ''))
     );

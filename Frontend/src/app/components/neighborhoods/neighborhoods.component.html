@@ -1,7 +1,7 @@
 <div class="neighborhoods-container">
 
   <!-- Neighborhood Cards -->
-  <div *ngIf="neighborhoods.length; else noData">
+  <div class="neighborhood-card"*ngIf="neighborhoods.length; else noData">
     <app-neighborhood-card
       *ngFor="let neighborhood of neighborhoods"
       [neighborhood]="neighborhood"
