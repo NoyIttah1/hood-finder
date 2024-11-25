@@ -11,24 +11,20 @@
           [formControl]="control"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-          <mat-option *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let neighborhood of filteredNeighborhoods | async"
+            [value]="neighborhood"
+          >
             {{ neighborhood }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </div>
 
-    <div class="filter-container">
-
-    <button mat-icon-button [matMenuTriggerFor]="filterMenu">
+    <!-- Filter Button -->
+    <button mat-icon-button color="primary" (click)="openFilterDialog()">
       <mat-icon>tune</mat-icon>
     </button>
-
-    <mat-menu #filterMenu="matMenu" >
-      <button mat-menu-item (click)="applyFilter('age')">Filter by Average Age</button>
-      <button mat-menu-item (click)="applyFilter('distance')">Filter by Distance</button>
-    </mat-menu>
-    </div>
   </div>
 </div>

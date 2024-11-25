@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import {MatDialog} from "@angular/material/dialog";
+import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filter-dialog.component";
 
 @Component({
   selector: 'app-header',
@@ -16,13 +18,28 @@ export class HeaderComponent {
   filteredNeighborhoods$: Observable<string[]> | undefined;
   filteredNeighborhoods: Observable<string[]> | undefined;
 
+
+  constructor(private dialog: MatDialog) {}
+
   ngOnInit(): void {
     // Filter neighborhoods as the user types
-    this.filteredNeighborhoods = this.control.valueChanges.pipe(
-      startWith(''),
-      map((query) => this.filterNeighborhoods(query || ''))
-    );
+    // this.filteredNeighborhoods = this.control.valueChanges.pipe(
+    //   startWith(''),
+    //   map((query) => this.filterNeighborhoods(query || ''))
+    // );
   }
+
+  openFilterDialog() {
+    const dialogRef = this.dialog.open(FilterDialogComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe((filters) => {
+      if (filters) {
+        console.log('Applied Filters:', filters);
+        // Pass filters to parent or service for backend queries
+      }
+    });}
 
   filterNeighborhoods(query: string): string[] {
     return this.neighborhoods.filter((name) =>
@@ -30,12 +47,4 @@ export class HeaderComponent {
     );
   }
 
-  onOptionSelected(event: any): void {
-    this.search.emit(event.option.value);
-  }
-
-  applyFilter(filterType: string): void {
-    console.log(`Filter applied: ${filterType}`);
-    this.filter.emit(filterType); // Emit the selected filter type to the parent
-  }
 }

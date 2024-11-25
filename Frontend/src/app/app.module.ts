@@ -17,6 +17,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import {FilterDialogComponent} from "./dialogs/components/filter-dialog/filter-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -24,7 +29,8 @@ import {MatMenuModule} from "@angular/material/menu";
     NeighborhoodsComponent,
     NeighborhoodCardComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FilterDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +46,10 @@ import {MatMenuModule} from "@angular/material/menu";
     MatGridListModule,
     MatIconModule,
     MatMenuModule,
+    MatDialogModule,
+    MatSliderModule,
+    MatButtonToggleModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

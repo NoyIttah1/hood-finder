@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Filters</h2>
+<div mat-dialog-content>
+  <p>Age Range</p>
+  <div class="age-range">
+    <mat-form-field appearance="outline">
+      <mat-label>Min Age</mat-label>
+      <input matInput type="number"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Max Age</mat-label>
+      <input matInput type="number" />
+    </mat-form-field>
+  </div>
+
+  <!-- Distance Filter -->
+  <p>Max Distance</p>
+  <div class="distance-slider">
+    <mat-slider
+
+      thumbLabel
+      min="1"
+      max="100"
+      step="1"
+      tickInterval="10"
+    ></mat-slider>
+    <p class="distance-value">{{ maxDistance }} km</p>
+  </div>
+<!--  &lt;!&ndash; Sorting Filter &ndash;&gt;-->
+<!--  <p>Sort By</p>-->
+<!--  <mat-select >-->
+<!--    <mat-option value="neighborhood">Neighborhood</mat-option>-->
+<!--    <mat-option value="averageAge">Average Age</mat-option>-->
+<!--    <mat-option value="distanceFromCityCenter">Distance</mat-option>-->
+<!--  </mat-select>-->
+
+<!--  <p>Sort Order</p>-->
+<!--  <mat-button-toggle-group>-->
+<!--    <mat-button-toggle value="asc">Ascending</mat-button-toggle>-->
+<!--    <mat-button-toggle value="desc">Descending</mat-button-toggle>-->
+<!--  </mat-button-toggle-group>-->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="applyFilters()">
+    Apply
+  </button>
+</div>
