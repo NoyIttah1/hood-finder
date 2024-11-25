@@ -2,11 +2,11 @@
 <div mat-dialog-content>
   <p>Age Range</p>
   <div class="age-range">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [(ngModel)]="filters.minAge">
       <mat-label>Min Age</mat-label>
       <input matInput type="number"  />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"  [(ngModel)]="filters.maxAge">
       <mat-label>Max Age</mat-label>
       <input matInput type="number" />
     </mat-form-field>
@@ -23,7 +23,7 @@
       step="1"
       tickInterval="10"
     ></mat-slider>
-    <p class="distance-value">{{ maxDistance }} km</p>
+    <p class="distance-value">{{ filters.maxDistance }} km</p>
   </div>
 <!--  &lt;!&ndash; Sorting Filter &ndash;&gt;-->
 <!--  <p>Sort By</p>-->
@@ -41,7 +41,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="applyFilters()">
+  <button mat-raised-button color="primary" style=" background-color: #ff5722;" (click)="applyFilters()">
     Apply
   </button>
 </div>

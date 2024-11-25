@@ -8,3 +8,10 @@ export interface INeighborhood {
   latitude: number;
   longitude: number;
 }
+
+export interface IFilters {
+  minAge: number;
+  maxAge: number;
+  minDistance: number;
+  maxDistance: number ;
+}

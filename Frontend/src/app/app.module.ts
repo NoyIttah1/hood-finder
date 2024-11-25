@@ -10,7 +10,7 @@ import {FooterComponent} from "./components/footer/footer.component";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
@@ -38,7 +38,6 @@ import {MatSelectModule} from "@angular/material/select";
     BrowserAnimationsModule,
     AppRoutingModule,
     MatInputModule,
-    ReactiveFormsModule,
     MatAutocompleteModule,
     MatOptionModule,
     MatCardModule,
@@ -50,6 +49,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatSliderModule,
     MatButtonToggleModule,
     MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
