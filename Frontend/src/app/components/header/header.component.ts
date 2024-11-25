@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, fromEvent, Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filter-dialog.component";
@@ -12,6 +12,8 @@ import {INeighborhood, INeighborhoodFilters} from "../../defines";
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  @ViewChild('searchMenu', { static: true }) searchMenu!: ElementRef; // Reference to the search menu container
+
   @Input({alias: "allNeighborhoods", required: true}) allNeighborhoods: INeighborhood[] = [];
   @Input({alias: "neighborhoodsNames", required: true}) neighborhoodsNames: string[] = [];
 
@@ -29,6 +31,7 @@ export class HeaderComponent {
   };
   control = new FormControl('');
   filteredOptions$!: Observable<string[]>;
+  private clickSubscription!: Subscription;
 
   constructor(private dialog: MatDialog) {
   }
@@ -38,13 +41,15 @@ export class HeaderComponent {
       startWith(''),
       map(value => this._filterNeighborhoodNames(value || ''))
     );
+    // Listen for global click events
+    this.clickSubscription = fromEvent(document, 'click').subscribe((event: Event) => {
+      this.handleOutsideClick(event);
+    });
   }
 
   public selectOption(option: string): void {
     let filteredCards = this.allNeighborhoods.filter(card => card.neighborhood.toLowerCase() === option.toLowerCase());
-    if(filteredCards.length <=0) {
-      filteredCards =[];
-    }
+
     this.onSearchCardSelected.emit(filteredCards);
   }
   openFilterDialog() {
@@ -65,5 +70,14 @@ export class HeaderComponent {
     return this.neighborhoodsNames.filter(option =>
       option.toLowerCase().includes(filterValue)
     );
+  }
+
+  private handleOutsideClick(event: Event): void {
+    const targetElement = event.target as HTMLElement;
+
+    // Check if the click occurred outside the search menu
+    if (!this.searchMenu.nativeElement.contains(targetElement)) {
+      this.onSearchCardSelected.emit([]); // Notify parent component or handle logic here
+    }
   }
 }

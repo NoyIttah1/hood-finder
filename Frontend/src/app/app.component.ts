@@ -92,6 +92,7 @@ export class AppComponent implements OnInit {
    * @param previousOrNextPage if true - next, otherwise previous
    */
   movePage(previousOrNextPage: boolean) {
+
     if (previousOrNextPage) {
       this.paginationFilters.currentPage += 1; // Next page
     } else {

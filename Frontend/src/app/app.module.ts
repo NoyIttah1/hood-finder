@@ -6,7 +6,6 @@ import {NeighborhoodsComponent} from "./components/neighborhoods/neighborhoods.c
 import {HttpClientModule} from "@angular/common/http";
 import {NeighborhoodCardComponent} from "./components/neighborhood-card/neighborhood-card.component";
 import {HeaderComponent} from "./components/header/header.component";
-import {FooterComponent} from "./components/footer/footer.component";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
@@ -29,7 +28,6 @@ import {MatSelectModule} from "@angular/material/select";
     NeighborhoodsComponent,
     NeighborhoodCardComponent,
     HeaderComponent,
-    FooterComponent,
     FilterDialogComponent
   ],
   imports: [

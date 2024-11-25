@@ -2,8 +2,8 @@
   <h3 class="title">Hood Finder</h3>
   <div class="actions">
     <!-- Search Bar -->
-    <div class="search-bar">
-      <mat-form-field appearance="outline">
+    <div class="search-bar" >
+      <mat-form-field  appearance="outline">
         <mat-label>Search neighborhood</mat-label>
         <input
           type="text"
@@ -12,8 +12,8 @@
           [matAutocomplete]="auto"
           placeholder="Type a neighborhood name"
         />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option  *ngFor="let option of filteredOptions$ | async" [value]="option" (click)="selectOption(option)">
+        <mat-autocomplete #auto="matAutocomplete" #searchMenu>
+          <mat-option    *ngFor="let option of filteredOptions$ | async" [value]="option" (click)="selectOption(option)">
             {{ option }}
           </mat-option>
         </mat-autocomplete>
