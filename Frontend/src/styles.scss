@@ -1,16 +1,26 @@
 body {
-  background-color: #f9f9f9; /* Set light background color for the whole app */
+  background-color: #f8f9fa;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  color: #333; /* Neutral text color */
+  color: #333;
 }
 
-html {
-  height: 100%;
-}
-
-body, app-root {
+html, body, app-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
 }

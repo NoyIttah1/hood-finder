@@ -8,11 +8,11 @@
   padding: 16px;
   padding-bottom: unset !important;
   background-color: #fff;
-  border-bottom: 2px solid #e1e1e1; /* Subtle border for separation */
+  border-bottom: 2px solid #e1e1e1;
 }
 
 .title {
-  color: #ff5722; /* Vibrant color for the title */
+  color: #ff5722;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -21,7 +21,7 @@
 
 .actions {
   display: flex;
-  gap: 8px; /* Spacing between search and filters */
+  gap: 8px;
 }
 
 .search-bar {
