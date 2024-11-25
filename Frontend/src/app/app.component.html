@@ -1,6 +1,6 @@
-<app-header (filterEmitter)="onFilter($event)" [neighborhoodsNames]="neighborhoodsNamesToSearch" (search)="onSearch($event)"></app-header>
+<app-header (filterEmitter)="onFilter($event)" (onSearchCardSelected)="onSelectedSearchCard($event)" [allNeighborhoods]="neighborhoods" [neighborhoodsNames]="neighborhoodsNamesToSearch" (search)="onSearch($event)"></app-header>
 IS LOADING ???? {{ this.isLoadingData }}
-<app-neighborhoods [neighborhoods]="neighborhoods"></app-neighborhoods>
+<app-neighborhoods [neighborhoods]="searchedCards.length > 0 ? searchedCards: neighborhoods"></app-neighborhoods>
 <app-footer></app-footer>
 
 

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
 import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filter-dialog.component";
-import {INeighborhoodFilters} from "../../defines";
+import {INeighborhood, INeighborhoodFilters} from "../../defines";
 
 @Component({
   selector: 'app-header',
@@ -12,8 +12,12 @@ import {INeighborhoodFilters} from "../../defines";
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  @Input({alias: "neighborhoodsNames", required: true}) neighborhoods: string[] = [];
+  @Input({alias: "allNeighborhoods", required: true}) allNeighborhoods: INeighborhood[] = [];
+  @Input({alias: "neighborhoodsNames", required: true}) neighborhoodsNames: string[] = [];
+
   @Output() search = new EventEmitter<string>();
+  @Output() onSearchCardSelected = new EventEmitter<INeighborhood[]>();
+  @Output() filterEmitter = new EventEmitter<INeighborhoodFilters>();
 
   filters: INeighborhoodFilters = {
     minAge: 0,
@@ -23,10 +27,8 @@ export class HeaderComponent {
     sortField: 'neighborhood',
     sortOrder: 'asc'
   };
-  @Output() filterEmitter = new EventEmitter<INeighborhoodFilters>();
   control = new FormControl('');
   filteredOptions$!: Observable<string[]>;
-
 
   constructor(private dialog: MatDialog) {
   }
@@ -38,9 +40,16 @@ export class HeaderComponent {
     );
   }
 
+  public selectOption(option: string): void {
+    let filteredCards = this.allNeighborhoods.filter(card => card.neighborhood.toLowerCase() === option.toLowerCase());
+    if(filteredCards.length <=0) {
+      filteredCards =[];
+    }
+    this.onSearchCardSelected.emit(filteredCards);
+  }
   openFilterDialog() {
     const dialogRef = this.dialog.open(FilterDialogComponent, {
-      width: '300px',
+      width: '600px',
       data: this.filters,
     });
 
@@ -53,7 +62,7 @@ export class HeaderComponent {
 
   private _filterNeighborhoodNames(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.neighborhoods.filter(option =>
+    return this.neighborhoodsNames.filter(option =>
       option.toLowerCase().includes(filterValue)
     );
   }

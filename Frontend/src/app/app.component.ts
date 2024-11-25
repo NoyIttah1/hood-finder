@@ -9,7 +9,8 @@ import {INeighborhood, INeighborhoodFilters} from './defines';
 })
 export class AppComponent implements OnInit {
   neighborhoods: INeighborhood[] = [];
-  neighborhoodsNamesToSearch: string[] = []
+  neighborhoodsNamesToSearch: string[] = [];
+  searchedCards: INeighborhood[] = [];
   isLoadingData = false;
   paginationData?: {
     total: number,
@@ -77,6 +78,13 @@ export class AppComponent implements OnInit {
   onFilter(filters: INeighborhoodFilters) {
     if (!filters) return;
     this.fetchNeighborhoods(filters);
+  }
+
+  onSelectedSearchCard(cards: INeighborhood[]) {
+    if(cards.length <= 0) {
+      this.searchedCards = this.neighborhoods;
+    }
+   this.searchedCards = cards;
   }
 
   /**
