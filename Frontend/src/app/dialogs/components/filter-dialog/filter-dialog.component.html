@@ -20,19 +20,22 @@
 
     <input matSliderThumb [value]="filters.maxDistance" (valueChange)="onSliderChange($event)">
   </mat-slider>
-</div>
-<!-- Sorting Filter -->
-<p>Sort By</p>
-<mat-select [(ngModel)]="filters.sortField" name="sortField">
-  <mat-option value="neighborhood">Neighborhood</mat-option>
-  <mat-option value="averageAge">Average Age</mat-option>
-  <mat-option value="distanceFromCityCenter">Distance</mat-option>
-</mat-select>
+  <p>Sort By</p>
+  <mat-select [(ngModel)]="filters.sortField" name="sortField">
+    <mat-option value="neighborhood">Neighborhood</mat-option>
+    <mat-option value="city">City</mat-option>
+    <mat-option value="averageAge">Average Age</mat-option>
+    <mat-option value="distanceFromCityCenter">Distance</mat-option>
+    <mat-option value="averageIncome">Average Income</mat-option>
 
-<mat-button-toggle-group [(ngModel)]="filters.sortOrder" name="sortOrder">
-  <mat-button-toggle value="asc">Ascending</mat-button-toggle>
-  <mat-button-toggle value="desc">Descending</mat-button-toggle>
-</mat-button-toggle-group>
+  </mat-select>
+  <p>Sort order</p>
+  <mat-button-toggle-group [(ngModel)]="filters.sortOrder" name="sortOrder">
+    <mat-button-toggle value="asc">Ascending</mat-button-toggle>
+    <mat-button-toggle value="desc">Descending</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
 
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Cancel</button>
