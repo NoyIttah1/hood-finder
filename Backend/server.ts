@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import Neighborhood, {
@@ -8,6 +8,9 @@ import Neighborhood, {
     NeighborhoodDTOConverter
 } from "./models/Neighborhood";
 
+export const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) =>
+    (req: Request, res: Response, next: NextFunction) =>
+        Promise.resolve(fn(req, res, next)).catch(next);
 export interface INeighborhoodQueries {
     minAge?: number;
     maxAge?: number;
@@ -36,12 +39,33 @@ mongoose.connect(MONGO_URL)
 // app.get('/', (req: Request, res: Response) => {
 //     res.send('Backend server is running');
 // });
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error('******* Begin Error *******');
+    console.error(err.stack || err.message);
+    console.error('******* End Error *******');
 
-app.get('/neighborhoods', async (req: Request<{}, {}, {}, INeighborhoodQueries>, res: Response) => {
-    await getNeighborhoodsAsync(req, res);
-    return;
+    if (res.headersSent) {
+        return next(err);
+    }
+
+    res.status(500).json({
+        message: 'Internal Server Error',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    });
 });
 
+app.get(
+    '/neighborhoods',
+    asyncHandler(async (req: Request, res: Response) => {
+        await getNeighborhoodsAsync(req, res);
+        return;
+    })
+);
+// Global error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error('Error:', err.stack || err.message);
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 // Start server
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 
@@ -104,7 +128,6 @@ async function getNeighborhoodsAsync(req: Request<{}, {}, {}, INeighborhoodQueri
                 $lte: Number(maxAge),
             };
         }
-
         // Build sorting object
         const sort: Record<string, 1 | -1> = {};
         sort[sortField] = sortOrder === 'asc' ? 1 : -1;
@@ -112,32 +135,32 @@ async function getNeighborhoodsAsync(req: Request<{}, {}, {}, INeighborhoodQueri
         // Handle pagination
         const skip = (Number(page) - 1) * Number(limit);
 
-        // Query the database
-        const neighborhoods = await Neighborhood.find(filter)
-            .sort(sort) // Apply sorting
-            .limit(Number(limit)) // Limit the number of results
-            .skip(skip)
-            .lean<IDBNeighborhoodDTO[]>().exec(); // Skip documents for pagination
-        const outNeighborhoods: INeighborhoodOutDTO[] = [];
-        for (const neighborhood of neighborhoods) {
-            if (!neighborhood) continue;
+        const [neighborhoods, total] = await Promise.all([
+            Neighborhood.find(filter)
+                .sort(sort)
+                .limit(Number(limit))
+                .skip(skip)
+                .lean<IDBNeighborhoodDTO[]>()
+                .exec(),
+            Neighborhood.countDocuments(filter) // Total count considering filters
+        ]);
+            const outNeighborhoods: INeighborhoodOutDTO[] = [];
+            for (const neighborhood of neighborhoods) {
+                if (!neighborhood) continue;
 
             const outNeigh = NeighborhoodDTOConverter.convertFromDBToOut(neighborhood);
             outNeighborhoods.push(outNeigh);
         }
 
-        const total = await Neighborhood.countDocuments(filter);
         res.status(200).json({
             data: outNeighborhoods,
             meta: {
                 total:total,
-                currentPage: Number(page),
+                page: Number(page),
                 limit: Number(limit),
             },
         });
     } catch (error: any) {
         res.status(500).json({message: error?.message ?? 'An error occurred'});
     }
-
-
 }
