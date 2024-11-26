@@ -55,6 +55,8 @@ export class AppComponent implements OnInit {
         this.paginationDATA = {
           totalPages: response.meta.total / this.paginationFilters.limit
         }
+        this.paginationDATA.totalPages = Math.ceil(this.paginationDATA?.totalPages || 0)
+
       },
       error: (error) => {
         console.error('Failed to fetch neighborhoods:', error);
