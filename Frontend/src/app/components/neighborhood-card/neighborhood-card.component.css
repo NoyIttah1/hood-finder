@@ -5,7 +5,6 @@
   margin-bottom: 16px;
   transition: transform 1s ease, box-shadow 1s ease;
 
-  /* Interactive hover effect */
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);

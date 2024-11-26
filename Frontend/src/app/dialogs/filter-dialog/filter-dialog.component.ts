@@ -1,13 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {INeighborhoodFilters} from "../../../defines";
+import {INeighborhoodFilters} from "../../defines";
 
 @Component({
   selector: 'app-filter-dialog',
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.css']
 })
-export class FilterDialogComponent implements OnInit {
+export class FilterDialogComponent{
 
   filters: INeighborhoodFilters = {
     minAge: 0,
@@ -23,10 +23,6 @@ export class FilterDialogComponent implements OnInit {
     this.filters = data;
   }
 
-  ngOnInit(): void {
-
-  }
-
   applyFilters() {
     this.dialogRef.close(this.filters);
   }
@@ -35,17 +31,14 @@ export class FilterDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-
   formatLabel(value: number): string {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
     }
-
     return `${value}`;
   }
 
   onSliderChange(event: number): void {
     this.filters.maxDistance = event
-    // You can add custom logic here if needed
   }
 }

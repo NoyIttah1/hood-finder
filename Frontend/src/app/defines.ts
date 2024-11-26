@@ -11,7 +11,6 @@ export interface INeighborhood {
 
 export type SortOrder = 'asc' | 'dsc';
 
-
 export interface INeighborhoodFilters {
   minAge?: number;
   maxAge?: number;
@@ -21,4 +20,16 @@ export interface INeighborhoodFilters {
   sortOrder?: SortOrder;
   limit?: number;
   page?: number;
+}
+
+export interface  INeighborhoodMetaData {
+  meta: {
+    total:number,
+    page: number,
+    limit: number
+  }
+}
+
+export interface  INeighborhoodResponse extends INeighborhoodMetaData {
+  data: INeighborhood[],
 }

@@ -1,9 +1,9 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {BehaviorSubject, fromEvent, Observable, Subscription} from 'rxjs';
+import { Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog} from "@angular/material/dialog";
-import {FilterDialogComponent} from "../../dialogs/components/filter-dialog/filter-dialog.component";
+import {FilterDialogComponent} from "../../dialogs/filter-dialog/filter-dialog.component";
 import {INeighborhood, INeighborhoodFilters} from "../../defines";
 
 @Component({
@@ -66,5 +66,4 @@ export class HeaderComponent {
       option.toLowerCase().includes(filterValue)
     );
   }
-
 }
