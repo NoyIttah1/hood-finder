@@ -32,14 +32,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-// app.get(
-//     '/neighborhoods',
-//     asyncHandler(async (req: Request, res: Response) => {
-//         await NeighborhoodController.getNeighborhoodsAsync(req, res);
-//         return;
-//     })
-// );
-
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Error:', err.stack || err.message);
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
