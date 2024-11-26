@@ -31,7 +31,6 @@ export class HeaderComponent {
   };
   control = new FormControl('');
   filteredOptions$!: Observable<string[]>;
-  private clickSubscription!: Subscription;
 
   constructor(private dialog: MatDialog) {
   }
@@ -41,10 +40,6 @@ export class HeaderComponent {
       startWith(''),
       map(value => this._filterNeighborhoodNames(value || ''))
     );
-    // Listen for global click events
-    this.clickSubscription = fromEvent(document, 'click').subscribe((event: Event) => {
-      this.handleOutsideClick(event);
-    });
   }
 
   public selectOption(option: string): void {
@@ -72,12 +67,4 @@ export class HeaderComponent {
     );
   }
 
-  private handleOutsideClick(event: Event): void {
-    const targetElement = event.target as HTMLElement;
-
-    // Check if the click occurred outside the search menu
-    if (!this.searchMenu.nativeElement.contains(targetElement)) {
-      this.onSearchCardSelected.emit([]); // Notify parent component or handle logic here
-    }
-  }
 }
