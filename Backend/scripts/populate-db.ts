@@ -17,28 +17,24 @@ mongoose
 
 const filePath = path.resolve(__dirname, '../db/neighborhoods_data.json');
 
-// Function to populate the database
 async function populateDatabase(): Promise<void> {
     try {
         const fileData = fs.readFileSync(filePath, 'utf8');
         const neighborhoods: IBasicNeighborhoodDTO[] = JSON.parse(fileData);
 
         const validNeighborhoods = neighborhoods.map((entry: any) => {
-            // Map JSON fields to schema fields
             return {
-                neighborhood: entry.neigborhood || 'Unknown Neighborhood', // Correcting 'neigborhood'
+                neighborhood: entry.neigborhood || 'Unknown Neighborhood',
                 city: entry.city || 'Unknown City',
-                averageAge: entry['average age'] || null, // Correcting 'average age'
-                distanceFromCityCenter: entry['distance from city center'] || null, // Correcting 'distance from city center'
-                averageIncome: entry['average income'] || null, // Correcting 'average income'
-                publicTransportAvailability: entry['public transport availability'] || 'unknown', // Correcting 'public transport availability'
+                averageAge: entry['average age'] || null,
+                distanceFromCityCenter: entry['distance from city center'] || null,
+                averageIncome: entry['average income'] || null,
+                publicTransportAvailability: entry['public transport availability'] || 'unknown',
                 latitude: entry.latitude || 0,
                 longitude: entry.longitude || 0,
             };
         });
 
-
-        // Clear existing data and insert valid entries
         await Neighborhood.deleteMany({});
         console.log('Cleared existing data.');
 
@@ -53,5 +49,4 @@ async function populateDatabase(): Promise<void> {
     }
 }
 
-// Execute the function
 populateDatabase();
