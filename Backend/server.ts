@@ -32,11 +32,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error('Error:', err.stack || err.message);
-    res.status(500).json({ message: 'Internal Server Error', error: err.message });
-});
-
 app.use (neighborhoodsRouter);
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 
